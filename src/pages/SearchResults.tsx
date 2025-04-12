@@ -38,24 +38,27 @@ const SearchResults = () => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <TextField
-        label="Anahtar Kelime"
-        variant="outlined"
-        fullWidth
-        value={keyword}
-        onChange={handleKeywordChange}
-      />
-      <FormControl fullWidth sx={{ mt: 2 }}>
-        <InputLabel>Video Türü</InputLabel>
-        <Select
-          value={videoType}
-          onChange={handleVideoTypeChange}
-          label="Video Türü"
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+            <TextField
+                label="Anahtar Kelime"
+                variant="outlined"
+                fullWidth
+                value={keyword}
+                onChange={handleKeywordChange}
+            />
+            <FormControl sx={{ minWidth: 200 }}>
+                <InputLabel>Video Türü</InputLabel>
+                <Select
+                value={videoType}
+                onChange={handleVideoTypeChange}
+                label="Video Türü"
 
-        >
-          <MenuItem value="SUNGER_BOB">Sünger Bob</MenuItem>
-        </Select>
-      </FormControl>
+                >
+                <MenuItem value="SUNGER_BOB">Sünger Bob</MenuItem>
+                <MenuItem value="CILGIN_KORSAN_JACK">Çılgın Korsan Jack</MenuItem>
+                </Select>
+            </FormControl>
+        </Box>
       <Box sx={{ mt: 3 }}>
         <Typography variant="h4" gutterBottom>
             Arama Sonuçları: 

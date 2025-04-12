@@ -39,7 +39,12 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
     };
 
     fetchVideos();
-  }, [details]);
+  }, [details, page, pageSize]);
+
+  // Sayfa değiştiğinde en üste kaydır
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
 
   if (loading) {
     return (
@@ -66,58 +71,59 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
   };
 
   return (
-  <>
-    {!videos || videos.length === 0 ? (
+  !videos || videos.length === 0 ? (
         <Alert severity="info">Video bulunamadı.</Alert>
       ) : (
-        <Grid container spacing={3}>
-          {videos.map((video) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={video.id}>
-              <Card 
-                sx={{ 
-                  cursor: 'pointer',
-                  '&:hover': {
-                    transform: 'scale(1.02)',
-                    transition: 'transform 0.2s ease-in-out'
-                  }
-                }}
-                onClick={() => handleVideoClick(video.id)}
-              >
-                <Box sx={{ position: 'relative' }}>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={'/sunger_bob.webp'}
-                    alt={video.title}
-                    sx={{ 
-                      objectFit: 'contain',
-                      backgroundColor: '#f5f5f5',
-                      padding: '10px'
-                    }}
-                  />
-                </Box>
-                <CardContent>
-                  <Typography variant="h6" noWrap>
-                    {video.title}
-                  </Typography>
-                  
-                </CardContent>
-              </Card>
+        <>
+            <Grid container spacing={3}>
+            {videos.map((video) => (
+                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3}}  key={video.id}>
+                    <Card 
+                        sx={{ 
+                            cursor: 'pointer',
+                            '&:hover': {
+                                transform: 'scale(1.02)',
+                                transition: 'transform 0.2s ease-in-out'
+                            }
+                        }}
+                        onClick={() => handleVideoClick(video.id)}
+                    >
+                        <Box sx={{ position: 'relative' }}>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                image={'/sunger_bob.webp'}
+                                alt={video.title}
+                                sx={{ 
+                                    objectFit: 'contain',
+                                    backgroundColor: '#FFEB3B',
+                                    padding: '10px'
+                                }}
+                            />
+                        </Box>
+                        <CardContent>
+                        <Typography variant="h6" noWrap>
+                            {video.title}
+                        </Typography>
+                        
+                        </CardContent>
+                    </Card>
+                </Grid>
+            ))}
             </Grid>
-          ))}
-        </Grid>
-      )}
-      <Pagination
-        count={totalPages}
-        page={page}
-        onChange={handlePageChange}
-        color="primary"
-        sx={{ mt: 4 }}
-      />
-  </>
-  )
-    
-      
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Pagination
+                    count={totalPages}
+                    page={page}
+                    onChange={handlePageChange}
+                    color="primary"
+                    sx={{ mt: 4 }}
+                    variant="outlined" shape="rounded"
+                />
+            </Box>
+        </>
+      )
+    )
 };
 
 export default VideoList;

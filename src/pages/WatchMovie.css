@@ -1,8 +1,17 @@
 .centered-video {
-    width: 1280px;
-    height: 720px;
+    width: 100%; /* Genişliği %100 yaparak sığmasını sağlıyoruz */
+    height: auto; /* Yüksekliği otomatik ayarlıyoruz */
+    max-width: 1000px; /* Normal bilgisayarlarda daha büyük bir maksimum genişlik */
+    margin: 0 auto; /* Ortalamak için */
 }
 
 .video-title {
-    margin-top: 10px; /* Başlık ile video arasında boşluk */
+    text-align: center; /* Başlığı ortala */
+    margin-top: 10px; /* Başlık ile video arasında boşluk bırak */
+}
+
+@media (max-width: 600px) {
+    .centered-video {
+        max-width: 100%; /* Küçük ekranlarda maksimum genişliği %100 yap */
+    }
 }

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { publicVideoService, getVideoStreamUrl } from '../services/video.service';
 import { Video } from '../types/video.types';
 import './WatchMovie.css';
-import { Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 const WatchMovie: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -38,9 +38,10 @@ const WatchMovie: React.FC = () => {
 
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
-            {
-                video && 
-                    <>
+        {
+            video && 
+                <>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}> {/* Ortalamak için güncellendi */}
                         <video
                             controls
                             className="centered-video"
@@ -52,12 +53,13 @@ const WatchMovie: React.FC = () => {
                                 type={video?.contentType}
                             />
                         </video>
-                        <Typography variant="h6" className="video-title">
-                            {video.title}
-                        </Typography>
-                    </>
-            }
-        </Container>
+                    </Box>
+                    <Typography variant="h6" className="video-title">
+                        {video.title}
+                    </Typography>
+                </>
+        }
+    </Container>
     );
 };
 
