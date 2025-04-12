@@ -1,0 +1,42 @@
+CURSORRULES'DA DEĞİŞİKLİK YAPMA BANA CHATTEN SÖYLE
+BU KURALLARDANN BİRİNİ İHLAL EDERSEN BANA CHATTEN SÖYLE
+CURSORRULE'A BİRŞEY EKLEMEMİZİN İYİ OLACAĞINI DÜŞÜNÜYORSAN BANA CHATTEN SÖYLE
+YANLIŞ BİRŞEY SÖYLERSEM BENİ UYAR HEMEN ÖZÜR DİLEME
+KONTROL ÖNERDİĞİMDE DEĞİŞİKLİK YAPMADAN ÖNCE SOR
+
+// Dosya Organizasyonu Kuralları
+- Her özellik için ayrı bir servis dosyası oluşturulmalı (örn: video.service.ts, auth.service.ts)
+- Tip tanımlamaları ilgili domain'e göre ayrı dosyalarda tutulmalı (örn: video.types.ts, auth.types.ts)
+- Ortak tipler common.types.ts dosyasında tutulmalı
+
+// API İstekleri Kuralları
+- Tüm API istekleri servis katmanı üzerinden yapılmalı, doğrudan fetch veya axios kullanılmamalı
+- API yanıtları için her zaman tip tanımlamaları kullanılmalı
+- Hata yönetimi servis katmanında merkezi olarak yapılmalı
+
+// Tip Güvenliği Kuralları
+- Tüm değişkenler ve fonksiyonlar için tip tanımlamaları kullanılmalı
+- any tipi kullanılmamalı
+- Nullable değerler için optional chaining (?.) kullanılmalı
+
+// Kod Stili Kuralları
+- Türkçe karakter kullanımından kaçınılmalı (değişken ve fonksiyon isimlerinde)
+- Fonksiyon isimleri camelCase olmalı
+- Bileşen isimleri PascalCase olmalı
+- Her dosya tek bir sorumluluğa sahip olmalı (Single Responsibility Principle)
+
+// Güvenlik Kuralları
+- API anahtarları ve hassas bilgiler environment variable'larda tutulmalı
+- Kullanıcı girdileri her zaman doğrulanmalı
+- API isteklerinde CORS politikalarına dikkat edilmeli
+
+// Video Oynatıcı Kuralları
+- Video oynatıcı için FLV ve normal video formatları desteklenmeli
+- Video yüklenirken ve oynatılırken hata yönetimi yapılmalı
+- Video kontrollerinde (play, pause, mute, seek) hata yönetimi yapılmalı
+- Video URL'i olmadığında veya yüklenemediğinde uygun hata mesajı gösterilmeli
+- Video oynatıcı responsive olmalı ve farklı ekran boyutlarına uyum sağlamalı
+- Video oynatıcı kullanıcı dostu kontroller içermeli (play/pause, ses, ilerleme çubuğu)
+- Video metadata'sı (süre, boyut) doğru şekilde yönetilmeli
+- Video oynatıcı component'i temiz kod prensiplerini takip etmeli (Single Responsibility)
+

@@ -1,0 +1,8 @@
+.centered-video {
+    width: 1280px;
+    height: 720px;
+}
+
+.video-title {
+    margin-top: 10px; /* Başlık ile video arasında boşluk */
+}
