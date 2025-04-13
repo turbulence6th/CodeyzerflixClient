@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, CardContent, Typography, Box, CircularProgress, Alert, Container, Pagination, useMediaQuery, useTheme } from '@mui/material';
 import { publicVideoService } from '../services/video.service';
 import { Video, VideoFilter } from '../types/video.types';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface VideoListProps {
   details?: VideoFilter; // Filtreleme için opsiyonel prop
@@ -17,7 +17,9 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [page, setPage] = useState(1); // Sayfa numarası
+  const location = useLocation();
+  const [page, setPage] = useState(parseInt(new URLSearchParams(location.search).get('page') || '1'));
+
   const [totalPages, setTotalPages] = useState(0); // Toplam sayfa sayısı
   const [pageSize] = useState(12); // Sayfa başına gösterilecek video sayısıü
 
@@ -69,7 +71,11 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
   };
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value); 
+    const newPage = value;
+    setPage(newPage);
+    const params = new URLSearchParams(location.search);
+    params.set('page', newPage.toString());
+    navigate({ search: params.toString() }); 
   };
 
   return (
