@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Grid, Card, CardMedia, CardContent, Typography, Box, CircularProgress, Alert, Container, Pagination, useMediaQuery, useTheme, Tooltip } from '@mui/material';
 import { publicVideoService } from '../services/video.service';
 import { Video, VideoFilter, VideoType } from '../types/video.types';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDebounce } from 'use-debounce';
 
 interface VideoListProps {
   details?: VideoFilter; // Filtreleme için opsiyonel prop
@@ -22,14 +23,21 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
   const [totalPages, setTotalPages] = useState(0); // Toplam sayfa sayısı
   const [pageSize] = useState(12); // Sayfa başına gösterilecek video sayısıü
 
+  const [debouncedKeyword] = useDebounce(details?.keyword, 500);
+
+  // Debounce edilmiş `details` objesini yeniden oluştur
+  const debouncedDetails = useMemo(() => ({
+    ...details,
+    keyword: debouncedKeyword
+  }), [details?.videoType, debouncedKeyword]);
 
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await publicVideoService.getAllVideos({ 
-          page: page, 
-          size: pageSize, 
-          details: details || {} // Filtre varsa kullan, yoksa boş nesne
+        const response = await publicVideoService.getAllVideos({
+          page,
+          size: pageSize,
+          details: debouncedDetails
         });
         setTotalPages(response.data.totalPages);
         setVideos(response.data.data);
@@ -38,9 +46,9 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
         setError(err instanceof Error ? err.message : 'Bilinmeyen bir hata oluştu');
       }
     };
-
+  
     fetchVideos();
-  }, [details, page, pageSize]);
+  }, [debouncedDetails, page, pageSize]);
 
   // Sayfa değiştiğinde en üste kaydır
   useEffect(() => {
