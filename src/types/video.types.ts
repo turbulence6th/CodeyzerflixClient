@@ -1,5 +1,6 @@
 export enum VideoType {
-  SUNGER_BOB = 'SUNGER_BOB'
+  SUNGER_BOB = 'SUNGER_BOB',
+  CILGIN_KORSAN_JACK = 'CILGIN_KORSAN_JACK'
 }
 
 export interface Video {
@@ -19,4 +20,9 @@ export interface VideoSaveRequest {
   title: string;
   videoType: VideoType;
   fileId: string;
+}
+
+export interface VideoUpdateRequest {
+  title: string;
+  videoType: VideoType;
 }

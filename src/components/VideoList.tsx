@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardMedia, CardContent, Typography, Box, CircularProgress, Alert, Container, Pagination, useMediaQuery, useTheme } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Typography, Box, CircularProgress, Alert, Container, Pagination, useMediaQuery, useTheme, Tooltip } from '@mui/material';
 import { publicVideoService } from '../services/video.service';
-import { Video, VideoFilter } from '../types/video.types';
+import { Video, VideoFilter, VideoType } from '../types/video.types';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface VideoListProps {
@@ -14,7 +14,6 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [videos, setVideos] = useState<Video[]>([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const location = useLocation();
@@ -34,11 +33,9 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
         });
         setTotalPages(response.data.totalPages);
         setVideos(response.data.data);
-        setLoading(false);
       } catch (err) {
         console.error('Videolar yüklenirken hata:', err);
         setError(err instanceof Error ? err.message : 'Bilinmeyen bir hata oluştu');
-        setLoading(false);
       }
     };
 
@@ -49,14 +46,6 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [page]);
-
-  if (loading) {
-    return (
-      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
-        <CircularProgress />
-      </Container>
-    );
-  }
 
   if (error) {
     return (
@@ -100,19 +89,21 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
                             <CardMedia
                                 component="img"
                                 height="140"
-                                image={'/sunger_bob.webp'}
+                                image={video.videoType === VideoType.SUNGER_BOB ? '/sunger_bob.webp' : '/cilgin_korsan_jack.webp'}
                                 alt={video.title}
                                 sx={{ 
                                     objectFit: 'contain',
-                                    backgroundColor: '#FFEB3B',
+                                    backgroundColor: video.videoType === VideoType.SUNGER_BOB ? '#FFEB3B' : '#87ceeb',
                                     padding: '10px'
                                 }}
                             />
                         </Box>
                         <CardContent>
-                        <Typography variant="h6" noWrap>
+                        <Tooltip title={video.title} arrow>
+                          <Typography variant="h6" noWrap>
                             {video.title}
-                        </Typography>
+                          </Typography>
+                        </Tooltip>
                         
                         </CardContent>
                     </Card>
