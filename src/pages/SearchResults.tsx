@@ -1,6 +1,6 @@
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, Container, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material';
+import { Box, Container, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 import { VideoType } from '../types/video.types';
 import VideoList from '../components/VideoList';
@@ -11,6 +11,8 @@ const SearchResults = () => {
   const navigate = useNavigate(); 
   const [keyword, setKeyword] = useState(new URLSearchParams(location.search).get('keyword') || '');
   const [videoType, setVideoType] = useState(new URLSearchParams(location.search).get('videoType') || '');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   // URL'den keyword değiştiğinde state'i güncelle
   useEffect(() => {
@@ -38,26 +40,31 @@ const SearchResults = () => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
-            <TextField
-                label="Anahtar Kelime"
-                variant="outlined"
-                fullWidth
-                value={keyword}
-                onChange={handleKeywordChange}
-            />
-            <FormControl sx={{ minWidth: 200 }}>
-                <InputLabel>Video Türü</InputLabel>
-                <Select
-                value={videoType}
-                onChange={handleVideoTypeChange}
-                label="Video Türü"
-
-                >
-                <MenuItem value="SUNGER_BOB">Sünger Bob</MenuItem>
-                <MenuItem value="CILGIN_KORSAN_JACK">Çılgın Korsan Jack</MenuItem>
-                </Select>
-            </FormControl>
+        <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', gap: 2 }}>
+            {/* Anahtar Kelime Alanı */}
+            <Box sx={{ width: '100%', mb: isMobile ? 2 : 0 }}> {/* Mobilde alt boşluk */}
+                <TextField
+                    label="Anahtar Kelime"
+                    variant="outlined"
+                    fullWidth
+                    value={keyword}
+                    onChange={handleKeywordChange}
+                />
+            </Box>
+            {/* Video Türü Alanı */}
+            <Box sx={{ width: isMobile ? '100%' : 'auto' }}> {/* Mobilde genişlik %100 */}
+                <FormControl fullWidth>
+                    <InputLabel>Video Türü</InputLabel>
+                    <Select
+                        value={videoType}
+                        onChange={handleVideoTypeChange}
+                        label="Video Türü"
+                    >
+                        <MenuItem value="SUNGER_BOB">Sünger Bob</MenuItem>
+                        <MenuItem value="CILGIN_KORSAN_JACK">Çılgın Korsan Jack</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
         </Box>
       <Box sx={{ mt: 3 }}>
         <Typography variant="h4" gutterBottom>

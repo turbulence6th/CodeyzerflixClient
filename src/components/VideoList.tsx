@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardMedia, CardContent, Typography, Box, CircularProgress, Alert, Container, Pagination } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Typography, Box, CircularProgress, Alert, Container, Pagination, useMediaQuery, useTheme } from '@mui/material';
 import { publicVideoService } from '../services/video.service';
 import { Video, VideoFilter } from '../types/video.types';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,9 @@ interface VideoListProps {
 }
 
 const VideoList: React.FC<VideoListProps> = ({ details }) => {
+  const theme = useTheme();
   const navigate = useNavigate();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +19,7 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
 
   const [page, setPage] = useState(1); // Sayfa numarası
   const [totalPages, setTotalPages] = useState(0); // Toplam sayfa sayısı
-  const [pageSize] = useState(12); // Sayfa başına gösterilecek video sayısı
+  const [pageSize] = useState(12); // Sayfa başına gösterilecek video sayısıü
 
 
   useEffect(() => {
@@ -119,6 +121,7 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
                     color="primary"
                     sx={{ mt: 4 }}
                     variant="outlined" shape="rounded"
+                    siblingCount={isMobile ? 0 : 1}
                 />
             </Box>
         </>

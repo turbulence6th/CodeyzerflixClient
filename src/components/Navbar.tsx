@@ -17,7 +17,7 @@ const Navbar = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isInputExpanded, setIsInputExpanded] = useState(false);
   const navigate = useNavigate();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'lg'));
 
   const handleSearch = () => {
     if (searchKeyword) {
