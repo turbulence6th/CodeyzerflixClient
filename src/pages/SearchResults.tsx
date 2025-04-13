@@ -42,7 +42,7 @@ const SearchResults = () => {
     <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', gap: 2 }}>
             {/* Anahtar Kelime Alanı */}
-            <Box sx={{ width: '100%', mb: isMobile ? 2 : 0 }}> {/* Mobilde alt boşluk */}
+            <Box sx={{ width: isMobile ? '100%' : '80%', mb: isMobile ? 2 : 0 }}>
                 <TextField
                     label="Anahtar Kelime"
                     variant="outlined"
@@ -52,7 +52,7 @@ const SearchResults = () => {
                 />
             </Box>
             {/* Video Türü Alanı */}
-            <Box sx={{ width: isMobile ? '100%' : 'auto' }}> {/* Mobilde genişlik %100 */}
+            <Box sx={{ width: isMobile ? '100%' : '20%' }}> 
                 <FormControl fullWidth>
                     <InputLabel>Video Türü</InputLabel>
                     <Select
