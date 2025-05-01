@@ -4,7 +4,7 @@ import { CodeyzerPaginationRequest, CodeyzerPaginationResponse } from '../types/
 
 const API_BASE_URL = process.env.NODE_ENV === 'development' 
   ? 'http://localhost:8081' 
-  : 'https://codeyzerflixapi.tail9fb8f4.ts.net'; // Ortama göre ayarlandı
+  : 'https://flix-server.codeyzer.com'; // Ortama göre ayarlandı
 
 const ADMIN_API_BASE_URL = process.env.NODE_ENV === 'development' 
   ? 'http://localhost:8080' 

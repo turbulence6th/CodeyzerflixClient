@@ -93,19 +93,19 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
                         }}
                         onClick={() => handleVideoClick(video.id)}
                     >
-                        <Box sx={{ position: 'relative' }}>
+                        
                             <CardMedia
                                 component="img"
-                                height="140"
-                                image={video.videoType === VideoType.SUNGER_BOB ? '/sunger_bob.webp' : '/cilgin_korsan_jack.webp'}
+                                image={`http://localhost:8080/videos/video/frame?videoId=${video.id}&time=00:07:12`}
                                 alt={video.title}
                                 sx={{ 
-                                    objectFit: 'contain',
-                                    backgroundColor: video.videoType === VideoType.SUNGER_BOB ? '#FFEB3B' : '#87ceeb',
-                                    padding: '10px'
-                                }}
+                                  width: '100%', // Genişliği %100 yaparak kartın tamamını kaplar
+                                  height: 'auto', // Yüksekliği otomatik ayarlayın
+                                  aspectRatio: '4 / 3', // En boy oranını 4:3 olarak ayarlayın
+                                  objectFit: 'fill' // Resmi kapsayacak şekilde ayarlayın
+                              }}
                             />
-                        </Box>
+                        
                         <CardContent>
                         <Tooltip title={video.title} arrow>
                           <Typography variant="h6" noWrap>
