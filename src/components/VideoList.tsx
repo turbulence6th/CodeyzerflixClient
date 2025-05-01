@@ -96,7 +96,7 @@ const VideoList: React.FC<VideoListProps> = ({ details }) => {
                         
                             <CardMedia
                                 component="img"
-                                image={`http://localhost:8080/videos/video/frame?videoId=${video.id}&time=00:07:12`}
+                                image={video.videoType === VideoType.SUNGER_BOB ? '/sunger_bob.webp' : '/cilgin_korsan_jack.webp'}
                                 alt={video.title}
                                 sx={{ 
                                   width: '100%', // Genişliği %100 yaparak kartın tamamını kaplar
